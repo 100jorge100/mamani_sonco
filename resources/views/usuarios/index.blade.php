@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 
- {{-- lo activamos directo al adminlte.php @section('plugins.Sweetalert2', true) --}}
+{{-- lo activamos directo al adminlte.php @section('plugins.Sweetalert2', true) --}}
 
 @section('content_header')
 @stop
@@ -12,14 +12,16 @@
     {{-- <a class="btn btn-success mt-2 mb-2" href="{{ route('usuarios.create') }}">Nuevo</a>         --}}
     <!-- Button trigger modal agregar -->
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#ModalCrear">
-      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-      </svg>
-      <i>Agregar</i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-plus"
+            viewBox="0 0 16 16">
+            <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+        </svg>
+        <i>Agregar</i>
     </button>
 
-    <table id="usuario" class="table table-striped shadow-lg mt-4 display nowrap" style="width:100%">
-        <thead style="background-color:#114d58f6">
+    <table id="usuario" class="table table-striped display nowrap" style="width:100%">
+        <thead style="background-color:#19d3b4f6">
             <th style="background-color: rgb(102, 255, 153);">ID</th>
             <th scope="col"><i>Usuario</i></th>
             <th scope="col"><i>E-mail</i></th>
@@ -63,8 +65,8 @@
 
                         <form action="{{ route('usuarios.destroy', $usuario->id) }}" method="POST"
                             class="formulario-eliminar">
-                            <a class="btn btn-dark btn-move btn-sm"
-                                href="{{ route('usuarios.edit', $usuario->id) }}"><span class="fa fa-pen"></span></a>
+                            <a class="btn btn-dark btn-move btn-sm" href="{{ route('usuarios.edit', $usuario->id) }}"><span
+                                    class="fa fa-pen"></span></a>
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-dark btn-move btn-sm ">
@@ -78,125 +80,142 @@
     </table>
     <!-- Modal crear inicio -->
     <div class="modal fade" id="ModalCrear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"><i>Agregar un Nuevo Usuario</i></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  @if ($errors->any())                                                
-                  <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                  <strong>¡Revise los campos!</strong>                        
-                      @foreach ($errors->all() as $error)                                    
-                          <span class="badge badge-danger">{{ $error }}</span>
-                      @endforeach                        
-                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                  </button>
-                  </div>
-              @endif
+                    @if ($errors->any())
+                        <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                            <strong>¡Revise los campos!</strong>
+                            @foreach ($errors->all() as $error)
+                                <span class="badge badge-danger">{{ $error }}</span>
+                            @endforeach
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
 
-              {!! Form::open(array('route' => 'usuarios.store','method'=>'POST')) !!}
-              <div class="row">
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="name">Usuario</label>
-                          {!! Form::text('name', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="email">E-mail</label>
-                          {!! Form::text('email', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="password">Password</label>
-                          {!! Form::password('password', array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="confirm-password">Confirmar Password</label>
-                          {!! Form::password('confirm-password', array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
+                    <form action="{{ route('usuarios.store') }}" method="POST" autocomplete="off">
+                        @csrf
+                        <div class="row">
+                            <label for=""><i style="color:rgb(13, 114, 114)">Registre Usuario y
+                                    Contraseña</i></label>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="formFile">Usuario</label>
+                                        {!! Form::text('name', null, ['class' => 'form-control']) !!}  
+                                        <label for="formFile" class="form-label">Default file input example</label>
+                                        <input class="form-control" type="file" id="formFile"> 
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="email">E-mail</label>
+                                        {!! Form::text('email', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="password">Password</label>
+                                        {!! Form::password('password', ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="confirm-password">Confirmar Password</label>
+                                        {!! Form::password('confirm-password', ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <label for=""><i style="color:rgb(13, 114, 114)">Registrar Datos Personales</i></label>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre</label>
+                                    {!! Form::text('nombre', null, ['class' => 'form-control']) !!}
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="apellido_paterno">Apellido_paterno</label>
+                                        {!! Form::text('apellido_paterno', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="apellido_materno">Apellido_materno</label>
+                                        {!! Form::text('apellido_materno', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="fecha_nacimiento">Fecha_nacimiento</label>
+                                        {!! Form::date('fecha_nacimiento', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="telefono">telefono</label>
+                                        {!! Form::text('telefono', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="direccion">Direccion</label>
+                                        {!! Form::text('direccion', null, ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="sexo">Sexo</label>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
+                                                name="sexo" id="sexoM" value="M"
+                                                {{ old('sexo') == 'M' ? 'checked' : '' }}>
+                                            <label for="sexoM" class="form-check-label">Masculino</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
+                                                name="sexo" id="sexoF" value="F"
+                                                {{ old('sexo') == 'F' ? 'checked' : '' }}>
+                                            <label for="sexoF" class="form-check-label">Femenino</label>
+                                            @error('sexo')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row g-2">
+                                <div class="col-md form-floating mb-3">
+                                    <div class="form-group">
+                                        <label for="">Roles</label>
+                                        {!! Form::select('roles[]', $roles, [], ['class' => 'form-control']) !!}
+                                    </div>
+                                </div>
+                                <div class="col-md form-floating mb-3">
 
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="nombre">Nombre</label>
-                          {!! Form::text('nombre', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="apellido_paterno">Apellido_paterno</label>
-                          {!! Form::text('apellido_paterno', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="apellido_materno">Apellido_materno</label>
-                          {!! Form::text('apellido_materno', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="fecha_nacimiento">Fecha_nacimiento</label>
-                          {!! Form::date('fecha_nacimiento', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="telefono">telefono</label>
-                          {!! Form::text('telefono', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="direccion">Direccion</label>
-                          {!! Form::text('direccion', null, array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="sexo">Sexo</label>
-                          <div class="form-check">
-                              <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
-                              name="sexo" id="sexoM" value="M" {{ old( 'sexo' ) == 'M' ? 'checked' : '' }}>
-                              <label for="sexoM" class="form-check-label">Masculino</label>
-                          </div>
-                          <div class="form-check">
-                              <input type="radio" class="form-check-input @error('sexo') is-invalid @enderror"
-                              name="sexo" id="sexoF" value="F" {{ old( 'sexo' ) == 'F' ? 'checked' : '' }}>
-                              <label for="sexoF" class="form-check-label">Femenino</label>
-                              @error('sexo')
-                                  <div class="invalid-feedback">
-                                      {{ $message }}
-                                  </div>
-                              @enderror
-                          </div>
-                      </div>
-                  </div>
-
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <div class="form-group">
-                          <label for="">Roles</label>
-                          {!! Form::select('roles[]', $roles,[], array('class' => 'form-control')) !!}
-                      </div>
-                  </div>
-
-                  <div class="col-xs-12 col-sm-12 col-md-12">
-                      <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>
-              </div>
-              {!! Form::close() !!}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -230,21 +249,21 @@
     <script>
         $(document).ready(function() {
             $('#usuario').DataTable({
-              "lengthMenu": [[5, 10, 50, -1], [5, 10, 50, "ALL"]],
-              "language": {
-              "lengthMenu": "Mostrar _MENU_ Registros por pagina",
-              "zeroRecords": "El dato no existe",
-              "info": "Mostrando la pagina _PAGE_ de _PAGES_",
-              "infoEmpty": "No records available",
-              "infoFiltered": "(filtrado de _MAX_ registros totales)",
-              "search": "Buscar",
-              "paginate": {
-                  'next': 'Siguiente',
-                  'previous': 'Anterior'
-              }
-              },
-              scrollY: 200,
-              scrollX: true,
+                "lengthMenu": [[10, 50, -1],[10, 50, "ALL"]],
+                "language": {
+                    "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+                    "zeroRecords": "El dato no existe",
+                    "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                    "infoEmpty": "No records available",
+                    "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                    "search": "Buscar",
+                    "paginate": {
+                        'next': 'Siguiente',
+                        'previous': 'Anterior'
+                    }
+                },
+                scrollY: 400,
+                scrollX: true,
             });
         });
     </script>
