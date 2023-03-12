@@ -25,7 +25,7 @@ class EmpresaController extends Controller
         //Con paginación
         $empresas = Empresa::All();
         return view('empresas.index',compact('empresas'));
-        //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!} 
+        //al usar esta paginacion, recordar poner en el el index.blade.php este codigo  {!! $blogs->links() !!}
     }
 
     /**
@@ -52,9 +52,9 @@ class EmpresaController extends Controller
             'nit' => 'required',
             'estado' => 'required',
         ]);
-    
+
         Empresa::create($request->all());
-    
+
         return redirect()->route('empresas.index');
     }
 
@@ -63,7 +63,8 @@ class EmpresaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $empresa = Empresa::find($id);
+         return response()->json($empresa);
     }
 
     /**
@@ -90,9 +91,9 @@ class EmpresaController extends Controller
             'nit' => 'required',
             'estado' => 'required',
         ]);
-    
+
         $empresa->update($request->all());
-    
+
         return redirect()->route('empresas.index');
     }
 
@@ -102,7 +103,12 @@ class EmpresaController extends Controller
     public function destroy(Empresa $empresa)
     {
         $empresa->delete();
-    
+
         return redirect()->route('empresas.index')->with('eliminar', 'ok');
+    }
+
+    public function actualizar(Request $request)
+    {
+        dd($request->all());
     }
 }
