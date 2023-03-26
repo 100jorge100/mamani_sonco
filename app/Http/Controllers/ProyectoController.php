@@ -27,9 +27,9 @@ class ProyectoController extends Controller
         $proyectos = Proyecto::all();
         $recursos = Recurso::all();
         $empresas = Empresa::all();
-        $comunidads = Comunidad::All();
+        $comunidads = Comunidad::all();
         $categorias = Categoria::all();
-        return view('proyectos.index', compact('proyectos', 'recursos','empresas', 'comunidads', 'categorias'));
+        return view('proyectos.index', compact('proyectos', 'recursos', 'empresas', 'comunidads', 'categorias'));
     }
 
     /**
@@ -69,10 +69,11 @@ class ProyectoController extends Controller
      */
     public function show(string $id)
     {
-        $cronograma = Cronograma::find($id);
+        $cronogramas = Cronograma::all();
+        $proyectos = Proyecto::all();
         $proyecto =  Proyecto::find($id);
-        
-        return view('cronogramas.index', compact('cronograma', 'proyecto'));
+
+        return view('cronogramas.index', compact('cronogramas', 'proyectos', 'proyecto'));
     }
 
     /**

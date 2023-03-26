@@ -19,27 +19,27 @@ return new class extends Migration
                   ->nullable()
                   ->constrained('comunidads')
                   ->cascadeOnUpdate()
-                  ->nullOnDelete(); 
+                  ->nullOnDelete();
             $table->foreignId('id_recurso')
                   ->nullable()
                   ->constrained('recursos')
                   ->cascadeOnUpdate()
-                  ->nullOnDelete(); 
+                  ->nullOnDelete();
             $table->foreignId('id_empresa')
                   ->nullable()
                   ->constrained('empresas')
                   ->cascadeOnUpdate()
-                  ->nullOnDelete();    
+                  ->nullOnDelete();
             $table->foreignId('id_categoria')
                   ->nullable()
                   ->constrained('categorias')
                   ->cascadeOnUpdate()
-                  ->nullOnDelete(); 
-            $table->foreignId('id_cronograma')
-                  ->nullable()
-                  ->constrained('cronogramas')
-                  ->cascadeOnUpdate()
-                  ->nullOnDelete(); 
+                  ->nullOnDelete();
+            // $table->foreignId('id_cronograma')
+            //       ->nullable()
+            //       ->constrained('cronogramas')
+            //       ->cascadeOnUpdate()
+            //       ->nullOnDelete();
             $table->timestamp('fecha_inicio');
             $table->timestamp('fecha_final')->nullable();
             $table->string('estado', 20);

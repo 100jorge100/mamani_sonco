@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 //icluir aqui el modelo
 use App\Models\Cronograma;
 use App\Models\Proyecto;
@@ -16,6 +16,8 @@ class CronogramaController extends Controller
      */
     public function index()
     {
+        //$datos = Cronograma::all();
+        //return response()->json($datos);
         $cronogramas = Cronograma::all();
         $proyectos = Proyecto::all();
         return view('cronogramas.index', compact('cronogramas', 'proyectos'));
@@ -27,7 +29,7 @@ class CronogramaController extends Controller
     public function create()
     {
         $proyecto =  Proyecto::all();
-        return view('cronogramas.crear', compact('proyecto')); 
+        return view('cronogramas.crear', compact('proyecto'));
     }
 
     /**
@@ -40,11 +42,28 @@ class CronogramaController extends Controller
             'descripcion' => 'required',
             'fecha_inicio' => 'required',
             'fecha_final' => 'required',
-            'estado' => 'required'
+            'id_proyecto' => 'required',
+            'estado' => 'required',
         ]);
-        $guardar = Cronograma::create($request->all()); 
-        $guardar->proyectos()->attach($request->proyecto_id);
+        Cronograma::create($request->all());
         return redirect()->route('cronogramas.index');
+
+        // $validatedData = $request->validate([
+        //     'nombre' => 'required',
+        //     'descripcion' => 'required',
+        //     'fecha_inicio' => 'required',
+        //     'fecha_final' => 'required',
+        //     'id_proyecto' => 'required',
+        //     'estado' => 'required',
+        // ]);
+
+        // $data = Cronograma::create($validatedData);
+
+        // return response()->json($data);
+
+        //Cronograma::create($request->all());
+
+        //return redirect()->route('cronogramas.index');
     }
 
     /**
@@ -52,7 +71,8 @@ class CronogramaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $empresa = Cronograma::find($id);
+        return response()->json($empresa);
     }
 
     /**
@@ -60,15 +80,26 @@ class CronogramaController extends Controller
      */
     public function edit(string $id)
     {
-        
+        $cronograma = Cronograma::find($id);
+        return response()->json($cronograma);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Cronograma $cronograma)
     {
-        //
+        request()->validate([
+            'nombre' => 'required',
+            'descripcion' => 'required',
+            'fecha_inicio' => 'required',
+            'fecha_final' => 'required',
+            'estado' => 'required',
+        ]);
+
+        $cronograma->update($request->all());
+
+        return redirect()->route('cronogramas.index');
     }
 
     /**
@@ -76,6 +107,9 @@ class CronogramaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $registro = Cronograma::findOrFail($id);
+        $registro->delete();
+
+        return response()->json(['success' => 'Registro eliminado exitosamente']);
     }
 }

@@ -11,6 +11,8 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\RecursoController;
 use App\Http\Controllers\CronogramaController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Chart2Controller;
+use App\Http\Controllers\ChartController;
 
 
 /*
@@ -47,6 +49,12 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('recursos', RecursoController::class);
     Route::resource('cronogramas', CronogramaController::class);
     Route::resource('proyectos', ProyectoController::class);
+    //Route::resource('dashboards', DashboardController::class);
+
+    Route::get('dashboards', '\App\Http\Controllers\ChartController@index')->name('dashborads');
+
+    //Route::get('dashboards','DashboardController@index_1');
+    //Route::resource('dashboards', Chart2Controller::class);
     /*Route::resource('roles', RolController::class);
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('blogs', BlogController::class);

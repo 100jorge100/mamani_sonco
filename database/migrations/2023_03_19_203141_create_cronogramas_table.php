@@ -18,6 +18,11 @@ return new class extends Migration
             $table->date('fecha_inicio');
             $table->date('fecha_final');
             $table->string('estado',20);
+            $table->foreignId('id_proyecto')
+                  ->nullable()
+                  ->constrained('proyectos')
+                  ->cascadeOnUpdate()
+                  ->nullOnDelete();
             $table->timestamps();
         });
     }

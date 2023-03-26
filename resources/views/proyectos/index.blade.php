@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    
+
 @stop
 
 @section('content')
@@ -16,20 +16,21 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                
-            
+
+
                         @can('crear-blog')
-                       <!-- <a class="btn btn-dark" href="{{ route('proyectos.create') }}" ><i class="fa fa-plus" aria-hidden="true">    Agregar Nuevo Proyecto</i></a> -->
+                        {{-- <a class="btn btn-dark" href="{{ route('proyectos.create') }}" ><i class="fa fa-plus" aria-hidden="true">    Agregar Nuevo Proyecto</i></a>  --}}
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ModalCrear">
-                            Launch static backdrop modal
+                        <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#ModalCrear">
+                            Agregar
                         </button>
                         @endcan
-            
+
                         <table class="table table-striped mt-2">
-                                <thead style="background-color:#e03737f6">        
-                                    <th style="display: none;">#</th>                             
+                                <thead style="background-color:#53c38ef6">
+                                    <th style="display: none;">#</th>
                                     <th style="color:#fff;">Nombre</th>
+                                    <th style="color:#fff">Descripcion</th>
                                     <th style="color:#fff;">Comunidad</th>
                                     <th style="color:#fff;">Recursos</th>
                                     <th style="color:#fff;">Empresa</th>
@@ -37,13 +38,14 @@
                                     <th style="color:#fff;">Inicio</th>
                                     <th style="color:#fff;">Final</th>
                                     <th style="color:#fff;">Estado</th>
-                                    <th style="color:#fff;">Acciones</th>                                                                   
+                                    <th style="color:#fff;">Acciones</th>
                                 </thead>
                                 <tbody>
                                     @foreach ($proyectos as $proyecto)
                                     <tr>
-                                        <td style="display: none;">{{ $proyecto->id }}</td>                                
+                                        <td style="display: none;">{{ $proyecto->id }}</td>
                                         <td>{{ $proyecto->nombre }}</td>
+                                        <td>{{ $proyecto->descripcion}}</td>
                                         <td>{{ $proyecto->comunidads->nombre }}</td>
                                         <td>{{ $proyecto->recursos->nombre }}</td>
                                         <td>{{ $proyecto->empresas->nombre }}</td>
@@ -52,33 +54,33 @@
                                         <td>{{ $proyecto->fecha_final }}</td>
                                         <td>{{ $proyecto->estado }}</td>
                                         <td>
-                                            <form action="{{ route('proyectos.destroy',$proyecto->id) }}" method="POST">                                        
+                                            <form action="{{ route('proyectos.destroy',$proyecto->id) }}" method="POST">
                                                 @can('editar-proyecto')
-                                                    <a class="btn btn-info" href="{{ route('proyectos.edit',$proyecto->id) }}">
-                                                        <i class="fas fa-solid fa-pen">Editar</i>
+                                                    <a class="btn btn-dark" href="{{ route('proyectos.edit',$proyecto->id) }}">
+                                                        <i class="fas fa-solid fa-pen"></i>
                                                     </a>
                                                 @endcan
-        
+
                                                 @csrf
                                                 @method('DELETE')
                                                 @can('borrar-proyecto')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fas fa-solid fa-trash">Borrar</i>
+                                                <button type="submit" class="btn btn-dark">
+                                                    <i class="fas fa-solid fa-trash"></i>
                                                 </button>
                                                 @endcan
-                                                <a href="{{ route('proyectos.show', $proyecto->id) }}" class="btn btn-secondary"><i class="fas fa-solid fa-chart-line"></i></a>
+                                                <a href="{{ route('proyectos.show', $proyecto->id) }}" class="btn btn-dark"><i class="fas fa-solid fa-chart-line"></i></a>
                                                 <a href="#" class="btn btn-dark"><i class="fas fa-regular fa-file-pdf"></i></a>
                                             </form>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
-                        </table>                     
+                        </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
     </section>
 <!-- Modal crear inicio -->
 <div class="modal fade" id="ModalCrear" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -89,18 +91,18 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            @if ($errors->any())                                                
+            @if ($errors->any())
             <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                <strong>¡Revise los campos!</strong>                        
-                    @foreach ($errors->all() as $error)                                    
+                <strong>¡Revise los campos!</strong>
+                    @foreach ($errors->all() as $error)
                         <span class="badge badge-danger">{{ $error }}</span>
-                    @endforeach                        
+                    @endforeach
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
         @endif
-    
+
         <form action="{{ route('proyectos.store') }}" method="POST">
             @csrf
             <div class="row">
@@ -111,12 +113,12 @@
                         <input type="text" name="nombre" class="form-control">
                         </div>
                     </div>
-                
+
                     <div class="col-md form-floating mb-3">
                         <div class="form-group">
                         <label for="id_comunidad">Comunidad</label>
                         <select name="id_comunidad" id="inputId_categoria" class="form-control">
-                            <option value="-- Escoja la Comunidad --"></option>    
+                            <option value="-- Escoja la Comunidad --"></option>
                             @foreach ($comunidads as $comunidad)
                                     <option value="{{ $comunidad['id'] }}">{{ $comunidad['nombre'] }}</option>
                                 @endforeach
@@ -129,7 +131,7 @@
                         <div class="form-group">
                         <label for="id_recurso">Recurso</label>
                         <select name="id_recurso" id="inputId_recurso" class="form-control">
-                            <option value="-- Escoja el recurso --"></option>    
+                            <option value="-- Escoja el recurso --"></option>
                             @foreach ($recursos as $recurso)
                                     <option value="{{ $recurso['id'] }}">{{ $recurso['nombre'] }}</option>
                                 @endforeach
@@ -140,7 +142,7 @@
                         <div class="form-group">
                         <label for="id_empresa">Empresas</label>
                         <select name="id_empresa" id="inputId_empresa" class="form-control">
-                            <option value="-- Escoja la empresa --"></option>    
+                            <option value="-- Escoja la empresa --"></option>
                             @foreach ($empresas as $empresa)
                                     <option value="{{ $empresa['id'] }}">{{ $empresa['nombre'] }}</option>
                                 @endforeach
@@ -153,7 +155,7 @@
                         <div class="form-group">
                         <label for="id_categoria">Categoria</label>
                         <select name="id_categoria" id="inputId_categoria" class="form-control">
-                            <option value="-- Escoja la categoria --"></option>    
+                            <option value="-- Escoja la categoria --"></option>
                             @foreach ($categorias as $categoria)
                                     <option value="{{ $categoria['id'] }}">{{ $categoria['nombre'] }}</option>
                                 @endforeach
@@ -176,15 +178,20 @@
                     </div>
                     <div class="col-md form-floating mb-3">
                         <div class="form-group">
-                        <label for="estado">Estado</label>
-                        <input type="text" name="estado" class="form-control">
+                            <label for="estado">Estado</label>
+                            <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                                <option selected><i>Seleccione una opcion</i></option>
+                                <option value="ACTIVO">Activo</option>
+                                <option value="CONCLUIDO">Pendiente</option>
+                                <option value="CANCELADO">Concluido</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Guardar</button>
-                  </div>                            
+                  </div>
             </div>
         </form>
         </div>
