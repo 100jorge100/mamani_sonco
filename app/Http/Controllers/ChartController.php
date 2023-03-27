@@ -11,6 +11,8 @@ class ChartController extends Controller
 {
     public function index()
     {
+
+        $todosLosDatos=[];
         $comunidades = Comunidad::where('canton', 'like', '%1%')->get();
         $proyectosPorComunidad = Proyecto::select('id_comunidad', DB::raw('COUNT(*) as total'))
             ->groupBy('id_comunidad')
@@ -27,7 +29,7 @@ class ChartController extends Controller
             $data1['data1'][] = $cantidadProyectos;
         }
 
-        $data1['data1'] = json_encode($data1);
+        $data1['data1'] = ($data1);
 
         //return view('dashboards.index', $data1);
         /////////////////////////////////////////
@@ -47,7 +49,7 @@ class ChartController extends Controller
             $data2['data2'][] = $cantidadProyectos;
         }
 
-        $data2['data2'] = json_encode($data2);
+        $data2['data2'] = ($data2);
         /////////////////////////////////////
         $comunidades = Comunidad::where('canton', 'like', '%3%')->get();
         $proyectosPorComunidad = Proyecto::select('id_comunidad', DB::raw('COUNT(*) as total'))
@@ -65,9 +67,16 @@ class ChartController extends Controller
             $data3['data3'][] = $cantidadProyectos;
         }
 
-        $data3['data3'] = json_encode($data3);
+        $data3['data3'] = ($data3);
 
+        $todosLosDatos=[
+            'data1' => $data1,
+            'data2' => $data2,
+            'data3' => $data3,
+        ];
 
-        return view('dashboards.index', $data1, $data2);
+        // return var_dump($todosLosDatos);
+
+        return view('dashboards.index', $todosLosDatos);
     }
 }

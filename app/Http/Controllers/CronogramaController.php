@@ -37,6 +37,8 @@ class CronogramaController extends Controller
      */
     public function store(Request $request)
     {
+        // return var_dump($request->id_proyecto);
+
         request()->validate([
             'nombre' => 'required',
             'descripcion' => 'required',
@@ -46,7 +48,8 @@ class CronogramaController extends Controller
             'estado' => 'required',
         ]);
         Cronograma::create($request->all());
-        return redirect()->route('cronogramas.index');
+
+        return redirect()->route('proyectos.show',$request->id_proyecto);
 
         // $validatedData = $request->validate([
         //     'nombre' => 'required',

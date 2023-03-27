@@ -69,11 +69,11 @@ class ProyectoController extends Controller
      */
     public function show(string $id)
     {
-        $cronogramas = Cronograma::all();
+        $cronogramas = Cronograma::where('id_proyecto', $id)->get();
         $proyectos = Proyecto::all();
         $proyecto =  Proyecto::find($id);
 
-        return view('cronogramas.index', compact('cronogramas', 'proyectos', 'proyecto'));
+        return view('proyectos.cronogramas-index', compact('cronogramas', 'proyectos', 'proyecto'));
     }
 
     /**
@@ -85,7 +85,9 @@ class ProyectoController extends Controller
         $recursos = Recurso::All();
         $empresas = Empresa::All();
         $categorias = Categoria::All();
-        return view('proyectos.editar', compact('proyecto', 'comunidads', 'recursos', 'empresas', 'categorias'));
+        $vista = view('proyectos.editar', compact('proyecto', 'comunidads', 'recursos', 'empresas', 'categorias'))->render();
+
+        return response()->json(["vista"=>$vista]);
     }
 
     /**

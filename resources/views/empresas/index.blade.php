@@ -6,6 +6,7 @@
     <h1 class="text-center"><i>Catalogo De Empresas</i></h1>
 @stop
 
+
 @section('content')
     <section class="section">
         <div class="section-header">
@@ -348,6 +349,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel=stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel=stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     <style>
         table {
             width: 100%;
@@ -372,6 +376,8 @@
 @stop
 
 @section('js')
+
+
     <script>
         console.log('Hi!');
     </script>
@@ -383,6 +389,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+
+
+
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.3.6/js/buttons.print.min.js"></script>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @if (session('eliminar') == 'ok')
         <script>
@@ -422,6 +439,10 @@
                     "lengthMenu": [
                         [5, 10, 50, -1],
                         [5, 10, 50, "ALL"]
+                    ],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
                     ],
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ Registros por pagina",
@@ -502,7 +523,7 @@
                                 $("#tbodyVer").empty();
 
 
-                                $("#nombreEmpresa").text("Ver detalles de "+data.nombre);
+                                $("#nombreEmpresa").text("Ver detalles de " + data.nombre);
 
                                 $("#tbodyVer").append("<tr><td>Nombre</td><td>" + data.nombre +
                                     "</td></tr>");

@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <label for=""><i>Cronograma de Actividades </i></label>
+    <label for=""><i>Cronograma de Actividades {{$proyecto->nombre}}</i></label>
 @stop
 
 @section('content')
@@ -86,7 +86,7 @@
                     <form action="{{ route('cronogramas.store') }}" method="POST">
                         @csrf
 
-                        <input	type="hidden" name="id_proyecto" value="">
+                        <input	type="hidden" name="id_proyecto" value="{{$proyecto->id}}">
                         <div class="form-group">
                             <label for="nombre">Nombre</label>
                             <input type="text" class="form-control" id="nombre" name="nombre"

@@ -10,7 +10,7 @@
     {{-- Sidebar menu --}}
     <div class="sidebar">
         <div>
-            <img src="vendor/adminlte/dist/img/logo-gamb.png" alt="" style="width:100%;" height="200">
+            <img src="{{url("vendor/adminlte/dist/img/logo-gamb.png")}}" alt="" style="width:100%;" height="200">
         </div>
         <nav class="pt-2">
             <ul class="nav nav-pills nav-sidebar flex-column {{ config('adminlte.classes_sidebar_nav', '') }}"
