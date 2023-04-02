@@ -73,6 +73,11 @@
         <meta name="msapplication-TileImage" content="{{ asset('favicon/ms-icon-144x144.png') }}">
     @endif
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
 </head>
 
 <body class="@yield('classes_body')" @yield('body_data')>
@@ -91,6 +96,11 @@
     @endif
 
     {{-- Extra Configured Plugins Scripts --}}
+
+
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
     @include('adminlte::plugins', ['type' => 'js'])
 
     {{-- Livewire Script --}}
@@ -101,6 +111,8 @@
             <livewire:scripts />
         @endif
     @endif
+
+
 
     {{-- Custom Scripts --}}
     @yield('adminlte_js')

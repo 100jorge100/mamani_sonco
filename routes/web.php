@@ -71,13 +71,13 @@ Route::group(['middleware' => ['auth']], function(){
     Route::resource('cronogramas', CronogramaController::class);
 
 ////// rutas del controlador proyectos inicio ///////////////////////////////////////
-    //Route::resource('proyectos', ProyectoController::class);
-    Route::get('proyectos', [ProyectoAjaxController::class, 'index']);
-    Route::post('proyectos', [ProyectoAjaxController::class, 'store']);
-    Route::get('fetch-proyectos', [ProyectoAjaxController::class, 'fetchstudent']);
-    Route::get('edit-proyecto/{id}', [ProyectoAjaxController::class, 'edit']);
-    Route::put('update-proyecto/{id}', [ProyectoAjaxController::class, 'update']);
-    Route::delete('delete-proyecto/{id}', [ProyectoAjaxController::class, 'destroy']);
+    Route::resource('proyectos', ProyectoController::class);
+    // Route::get('proyectos', [ProyectoAjaxController::class, 'index']);
+    // Route::post('proyectos', [ProyectoAjaxController::class, 'store']);
+    Route::get('fetch-proyectos', [ProyectoController::class, 'fetchProyecto']);
+    Route::get('edit-proyecto/{id}', [ProyectoController::class, 'edit']);
+    Route::put('update-proyecto/{id}', [ProyectoController::class, 'update']);
+    Route::delete('delete-proyecto/{id}', [ProyectoController::class, 'destroy']);
 ////////// rutas del controlador proyectos fin /////////////////////////////////////////////////
 
 ///////////////////para probar inicio

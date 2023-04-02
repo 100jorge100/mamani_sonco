@@ -100,6 +100,17 @@
                                 </div>
                             </div>
                         </div>
+{{--
+                        <div class="row">
+                            <div class="form-group">
+                                <select name="" id="select-permisos" multiple style="width:100%">
+                                    @foreach($permission as $value)
+                                        <option value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+
+                                </select>
+                            </div>
+                        </div> --}}
                         <div class="modal-footer">
 
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
@@ -123,13 +134,23 @@
             background-color: purple;
         }
     </style>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 @stop
 
 @section('js')
     <script>
         console.log('Hi!');
+
+        $(document).ready(function() {
+            $('#select-permisos').select2({
+                dropdownParent: $('#exampleModal .modal-body')
+            });
+        });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @stop

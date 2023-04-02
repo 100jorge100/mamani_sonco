@@ -60,13 +60,13 @@ class UsuarioController extends Controller
             'sexo' => 'required',
             'roles' => 'required',
         ]);
-        
+
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
-    
+
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('usuarios.index');
     }
 
@@ -86,7 +86,7 @@ class UsuarioController extends Controller
         $user = User::find($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
-    
+
         return view('usuarios.editar',compact('user','roles','userRole'));
     }
 
@@ -101,20 +101,20 @@ class UsuarioController extends Controller
             'password' => 'same:confirm-password',
             'roles' => 'required'
         ]);
-    
+
         $input = $request->all();
-        if(!empty($input['password'])){ 
+        if(!empty($input['password'])){
             $input['password'] = Hash::make($input['password']);
         }else{
-            $input = Arr::except($input,array('password'));    
+            $input = Arr::except($input,array('password'));
         }
-    
+
         $user = User::find($id);
         $user->update($input);
         DB::table('model_has_roles')->where('model_id',$id)->delete();
-    
+
         $user->assignRole($request->input('roles'));
-    
+
         return redirect()->route('usuarios.index');
     }
 
@@ -125,5 +125,10 @@ class UsuarioController extends Controller
     {
         User::find($id)->delete();
         return redirect()->route('usuarios.index')->with('eliminar', 'ok');
+    }
+
+    public function probando(string $saludo)
+    {
+        return var_dump($saludo);
     }
 }
