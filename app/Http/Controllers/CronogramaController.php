@@ -41,15 +41,15 @@ class CronogramaController extends Controller
 
         request()->validate([
             'nombre' => 'required',
-            'descripcion' => 'required',
+            'descripcion' => '',
             'fecha_inicio' => 'required',
             'fecha_final' => 'required',
             'id_proyecto' => 'required',
-            'estado' => 'required',
+            'estado' => 'required'
         ]);
         Cronograma::create($request->all());
 
-        return redirect()->route('proyectos.show',$request->id_proyecto);
+        return redirect()->route('proyectos.show', $request->id_proyecto);
 
         // $validatedData = $request->validate([
         //     'nombre' => 'required',

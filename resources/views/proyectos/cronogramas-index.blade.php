@@ -3,13 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <label for=""><i>Cronograma de Actividades {{$proyecto->nombre}}</i></label>
+    <h5 class="text-center"><i>Cronograma de Actividades</i></h5>
 @stop
 
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading"></h3>
+            <h5 class="page__heading"></h5>
         </div>
         <div class="section-body">
             <div class="row">
@@ -17,50 +17,55 @@
                     <div class="card">
                         <div class="card-body">
                             @can('crear-cronograma')
-                                {{-- <label for=""><i>PROYECTO:</i><span class="badge bg-secondary"><i>{{$proyecto->nombre}}</i></span></label> --}}
-                                {{-- <button id="create-new" class="btn btn-primary">Crear nuevo registro</button> --}}
-                                <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Agregar Cronograma
-                                </button>
-
-                                {{-- <a class="btn btn-warning" href="{{ route('cronogramas.create') }}">Nuevo</a> --}}
+                            <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <i class="fas fa-plus"> Agregar Actividad</i>
+                            </button>
                             @endcan
 
 
-                            <table id="tablaModelos" class="table table-striped mt-2">
-                                <thead style="background-color:#28B463">
-                                    <th style="color:#fff;">ID</th>
-                                    <th style="color:#fff;">Actividad</th>
-                                    <th style="color:#fff;">Descripcion</th>
-                                    <th style="color:#fff;">Fecha Inicio</th>
-                                    <th style="color:#fff;">Fecha Final</th>
-                                    <th style="color:#fff;">id proyectos</th>
-                                    <th style="color:#fff;">Estado</th>
-                                    <th style="color:#fff">Acciones</th>
+                            <table id="tablaProyecto" class="table table-striped" style="width:100%">
+                                <thead style="background-color:purple">
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>#</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Actividad</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Fecha Inicio</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Fecha Final</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Estado</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Descripcion</i></th>
+                                    <th style="color:blanchedalmond; font-size: 12px;"><i>Acciones</i></th>
                                 </thead>
                                 <tbody>
                                     @foreach ($cronogramas as $dato)
                                         <tr>
-                                            <td>{{ $dato->id }}</td>
-                                            <td>{{ $dato->nombre }}</td>
-                                            <td>{{ $dato->descripcion }}</td>
-                                            <td>{{ $dato->fecha_inicio }}</td>
-                                            <td>{{ $dato->fecha_final }}</td>
-                                            {{-- <td>{{ $dato->proyectos->nombre }}</td> --}}
-                                            <td>{{ $dato->estado }}</td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $dato->id }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $dato->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $dato->fecha_inicio }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $dato->fecha_final }}</i></td>
                                             <td>
-                                                {{-- <button class="btn btn-sm btn-primary edit-modal" data-id="{{ $dato->id }}">Editar</button> --}}
+                                                @if ($dato->estado == 'desarrollo')
+                                                    {{-- <button type="button" class="btn btn-warning">Desarrollo</button> --}}
+                                                    <div class="fake-button-1"><i>Desarrollo</i></div>
+                                                @endif
+                                                @if ($dato->estado == 'pendiente')
+                                                    {{-- <button type="button" class="btn btn-danger">Pendiente</button> --}}
+                                                    <div class="fake-button-2"><i>Pendiente</i></div>
+                                                @endif
+                                                @if ($dato->estado == 'concluido')
+                                                    {{-- <button type="button" class="btn btn-success">Concluido</button> --}}
+                                                    <div class="fake-button-3"><i>Concluido</i></div>
+                                                @endif
+                                            </td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $dato->descripcion }}</i></td>
+                                            <td>
                                                 <button type="button" class="btn btn-dark botonEditar"
                                                     data-cronogramaid="{{ $dato->id }}">
                                                     <i class="fas fa-edit"></i>
                                                 </button>
 
 
+
                                                 <!-- Botón de eliminar -->
                                                 <button class="btn btn-danger btn-sm delete-btn"
-                                                    data-id="{{ $dato->id }}">Eliminar</button>
+                                                    data-id="{{ $dato->id }}"><i class="fas fa-trash"></i></button>
 
                                             </td>
                                         </tr>
@@ -74,7 +79,6 @@
         </div>
     </section>
     {{-- modal crear inicio --}}
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -109,8 +113,12 @@
                         </div>
                         <div class="form-group">
                             <label for="estado">Estado</label>
-                            <input type="text" class="form-control" id="estado" name="estado"
-                                placeholder="Ingrese el estado">
+                            <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                                <option selected><i>Seleccione una opcion</i></option>
+                                <option value="desarrollo">Desarrollo</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="concluido">Concluido</option>
+                            </select>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -227,10 +235,18 @@
                                         placeholder="name@example.com">
                                     <label for="estado"><i>estado</i></label>
                                 </div>
+                                <div class="form-group">
+                                    <label for="estado">Estado</label>
+                                    <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                                        <option selected><i>Seleccione una opcion</i></option>
+                                        <option value="desarrollo">Desarrollo</option>
+                                        <option value="pendiente">Pendiente</option>
+                                        <option value="concluido">Concluido</option>
+                                    </select>
+                                </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary"
-                                    data-bs-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-dark">Guardar</button>
                             </div>
                         </div>
@@ -250,7 +266,43 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <style>
+        .fake-button-1 {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: bold;
+        color: black;
+        background-color: #f6a700;
+        border: none;
+        border-radius: 20px;
+        }
+        .fake-button-2 {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: bold;
+        color: black;
+        background-color: #e30032;
+        border: none;
+        border-radius: 20px;
+        }
+        .fake-button-3 {
+        display: inline-block;
+        padding: 8px 16px;
+        font-size: 12px;
+        font-weight: bold;
+        color: black;
+        background-color: #00a86b;
+        border: none;
+        border-radius: 20px;
+        }
+    </style>
+    <style>
+        .modal-header{
+            background: purple;
+            }
+    </style>
 @stop
 
 @section('js')
@@ -271,7 +323,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
-    {{-- <script>//cript para crear
+    <script>
+        $(document).ready(function () {
+            $('#tablaProyecto').DataTable({
+                "lengthMenu": [[5, 10, 50, -1],[5, 10, 50,"ALL"]],
+                    "language": {
+                        "lengthMenu": "Mostrar _MENU_ Registros por pagina",
+                        "zeroRecords": "El dato no existe",
+                        "info": "Mostrando la pagina _PAGE_ de _PAGES_",
+                        "infoEmpty": "No records available",
+                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                        "search": "Buscar",
+                        "paginate": {
+                            'next': 'Siguiente',
+                            'previous': 'Anterior',
+                        }
+                    }
+                });
+            });
+    </script>
+    <script>//cript para crear
         $(document).ready(function () {
             // Abrir la ventana modal al hacer clic en el botón
             $('#create-new').click(function () {
@@ -330,9 +401,7 @@
                     })
 
         });
-    </script> --}}
-
-
+    </script>
     <script>
         //script para eliminar
         $(document).ready(function() {

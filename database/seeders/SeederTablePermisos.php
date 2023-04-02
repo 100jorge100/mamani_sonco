@@ -31,7 +31,13 @@ class SeederTablePermisos extends Seeder
             'ver-empresa',
             'crear-empresa',
             'editar-empresa',
-            'borrar-empresa'
+            'borrar-empresa',
+
+            //Operacions sobre tabla blogs
+            'ver-recurso',
+            'crear-recurso',
+            'editar-recurso',
+            'borrar-recurso'
         ];
 
         foreach($permisos as $permiso) {

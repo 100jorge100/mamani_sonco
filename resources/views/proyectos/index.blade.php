@@ -9,7 +9,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">Gestion De Proyectos</h3>
+            <h2 class="page__heading">Gestion De Proyectos</h2>
         </div>
         <div class="section-body">
             <div class="row">
@@ -26,38 +26,47 @@
                                 </button>
                             @endcan
 
-                            <table class="table table-striped mt-2" id="proyectos">
-                                <thead style="background-color:#53c38ef6">
-                                    <th style="display: none;">#</th>
-                                    <th style="color:#fff;">Nombre</th>
-                                    <th style="color:#fff">Descripcion</th>
-                                    <th style="color:#fff;">Comunidad</th>
-                                    <th style="color:#fff;">Recursos</th>
-                                    <th style="color:#fff;">Empresa</th>
-                                    <th style="color:#fff;">Categoria</th>
-                                    <th style="color:#fff;">Inicio</th>
-                                    <th style="color:#fff;">Final</th>
-                                    <th style="color:#fff;">Estado</th>
-                                    <th style="color:#fff;">Acciones</th>
+                            <table class="table table-striped table-bordered shadow-lg mt-4 display responsive nowrap"
+                            style="width:100%"
+                             id="proyectos">
+                                <thead style="background-color:purple">
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">#</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Nombre</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Descripción</i> </th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Comunidad</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Recursos</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Empresa</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Categoria</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Inicio</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Final</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Estado</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Acciones</i></th>
                                 </thead>
                                 <tbody>
                                     @foreach ($proyectos as $proyecto)
                                         <tr>
-                                            <td style="display: none;">{{ $proyecto->id }}</td>
-                                            <td>{{ $proyecto->nombre }}</td>
-                                            <td>{{ $proyecto->descripcion }}</td>
-                                            <td>{{ $proyecto->comunidads->nombre }}</td>
-                                            <td>{{ $proyecto->recursos->nombre }}</td>
-                                            <td>{{ $proyecto->empresas->nombre }}</td>
-                                            <td>{{ $proyecto->categorias->nombre }}</td>
-                                            <td>{{ $proyecto->fecha_inicio }}</td>
-                                            <td>{{ $proyecto->fecha_final }}</td>
-                                            <td>{{ $proyecto->estado }}</td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->id }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->descripcion }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->comunidads->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->recursos->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->empresas->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->categorias->nombre }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->fecha_inicio }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $proyecto->fecha_final }}</i></td>
+                                            <td>
+                                                @if ($proyecto->estado == 'activo')
+                                                    <button type="button" class="btn btn-success">Activo</button>
+                                                @endif
+                                                @if ($proyecto->estado == 'inactivo')
+                                                    <button type="button" class="btn btn-secondary">Inactivo</button>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <form action="{{ route('proyectos.destroy', $proyecto->id) }}"
                                                     method="POST">
                                                     @can('editar-proyecto')
-                                                        <a class="btn btn-dark btnEditarProyecto"
+                                                        <a class="btn btn-success btnEditarProyecto"
                                                             href="{{ route('proyectos.edit', $proyecto->id) }}">
                                                             <i class="fas fa-solid fa-pen"></i>
                                                         </a>
@@ -66,14 +75,12 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     @can('borrar-proyecto')
-                                                        <button type="submit" class="btn btn-dark">
+                                                        <button type="submit" class="btn btn-danger">
                                                             <i class="fas fa-solid fa-trash"></i>
                                                         </button>
                                                     @endcan
-                                                    <a href="{{ route('proyectos.show', $proyecto->id) }}"
-                                                        class="btn btn-dark"><i class="fas fa-solid fa-chart-line"></i></a>
-                                                    <a href="#" class="btn btn-dark"><i
-                                                            class="fas fa-regular fa-file-pdf"></i></a>
+                                                    <a href="{{ route('proyectos.show', $proyecto->id) }}" class="btn btn-info"><i class="fas fa-solid fa-chart-line"></i></a>
+                                                    <a href="#" class="btn btn-warning"><i class="fas fa-regular fa-file-pdf"></i></a>
                                                 </form>
                                             </td>
                                         </tr>
@@ -185,18 +192,16 @@
                                 <div class="col-md form-floating mb-3">
                                     <div class="form-group">
                                         <label for="estado">Estado</label>
-                                        <select name="estado" class="form-select" aria-label="Default select example"
-                                            id="estado">
-                                            <option selected><i>Seleccione una opcion</i></option>
+                                        <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                                            {{-- <option selected><i>Seleccione una opcion</i></option> --}}
                                             <option value="ACTIVO">Activo</option>
-                                            <option value="CONCLUIDO">Pendiente</option>
-                                            <option value="CANCELADO">Concluido</option>
+                                            {{-- <option value="INACTIVO">Inactivo</option> --}}
                                         </select>
                                     </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                         </div>
@@ -236,6 +241,11 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style>
+            .modal-header{
+                background: purple;
+                }
+        </style>
 @stop
 
 @section('js')

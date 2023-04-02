@@ -20,7 +20,7 @@
                                 {{-- <label for=""><i>PROYECTO:</i><span class="badge bg-secondary"><i>{{$proyecto->nombre}}</i></span></label> --}}
                                 {{-- <button id="create-new" class="btn btn-primary">Crear nuevo registro</button> --}}
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-primary mb-3"  data-bs-toggle="modal"
                                     data-bs-target="#exampleModal">
                                     Agregar Cronograma
                                 </button>
@@ -29,7 +29,7 @@
                             @endcan
 
 
-                            <table id="tablaModelos" class="table table-striped mt-2">
+                            <table id="tablaModelos" class="table table-striped mt-4">
                                 <thead style="background-color:#28B463">
                                     <th style="color:#fff;">ID</th>
                                     <th style="color:#fff;">Actividad</th>
@@ -223,9 +223,15 @@
                             </div>
                             <div class="row g-2">
                                 <div class="col-md form-floating mb-3">
-                                    <input type="text" name="estado" class="form-control" id="estado"
-                                        placeholder="name@example.com">
-                                    <label for="estado"><i>estado</i></label>
+                                    <div class="form-group">
+                                        <label for="estado">Estado</label>
+                                        <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                                            <option selected><i>Seleccione una opcion</i></option>
+                                            <option value="desarrollo">Desarrollo</option>
+                                            <option value="pendiente">Pendiente</option>
+                                            <option value="concluido">Concluido</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <div class="modal-footer">
@@ -250,7 +256,6 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
 @stop
 
 @section('js')

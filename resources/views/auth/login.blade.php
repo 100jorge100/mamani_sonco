@@ -5,12 +5,14 @@
     </div>
     <!-- hasta aqui !-->
     <x-authentication-card>
-        <div>
-            <label class="mt-8 text-2xl font-medium text-bg-black text-center "><h3>Inicio de Seción</h3></label>
-        </div>
+
         <x-slot name="logo">
             {{-- <x-authentication-card-logo /> --}}
-            <p class="mt-8 text-2xl font-medium text-bg-black">BIEN BENIDOS AL SISTEMA DE MONITOREO DE PROYECTOS DEL GAMB</p>
+            <div>
+                <label class="mt-8 text-2xl font-medium text-bg-black text-center "><h3>Logeo</h3></label>
+            </div>
+            <p class="mt-8 text-2xl text-center font-medium text-bg-black">SISTEMA DE MONITOREO DE PROYECTOS</p>
+            <p class="mt-2 text-xl font-medium text-bg-black">GOBIERNO AUTONOMO MUNICIPAL DE BATALLAS</p>
         </x-slot>
 
         <x-validation-errors class="mb-4" />

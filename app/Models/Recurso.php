@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Recurso extends Model
 {
     use HasFactory;
-    protected $fillable = ['nombre', 'descripcion', 'gestion', 'monto', 'estado'];
+    protected $fillable = ['id','nombre', 'descripcion', 'gestion', 'monto', 'estado'];
     public function proyectos()
     {
         return $this->hasMany(Proyecto::class, 'id');

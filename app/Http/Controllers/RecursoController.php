@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Recurso;
 use App\Models\Comunidad;
+use Yajra\DataTables\DataTables;
+use DataTables\DataTable;
+
+
 
 class RecursoController extends Controller
 {
@@ -16,14 +21,14 @@ class RecursoController extends Controller
         $this->middleware('permission:borrar-recurso', ['only'=>['destroy']]);
     }
     /**
-     * 
+     *
      * Display a listing of the resource.
      */
     public function index()
     {
-        $comunidads = Comunidad::all();
-        $recursos = Recurso::All();
-        return view('recursos.index', compact('recursos', 'comunidads'));
+         $comunidads = Comunidad::all();
+         $recursos = Recurso::All();
+         return view('recursos.index', compact('recursos', 'comunidads'));
     }
 
     /**
@@ -38,17 +43,37 @@ class RecursoController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    // public function store(Request $request)
+    // {
+    //     $validator = Validator::make($request->all(), [
+    //         'nombre' => 'required',
+    //         'descripcion' => 'required',
+    //         'gestion' => 'required',
+    //         'monto' => 'required',
+    //         'estado' => 'required'
+    //     ]);
+
+    //     if ($validator->fails())
+    //     {
+    //         return response()->json(['errors'=>$validator->errors()->all()]);
+    //     }
+
+    //     $input = $request->all();
+
+    //     Recurso::create($input);
+    //     return response()->json(['success'=>'Data is successfully added']);
+    // }
     public function store(Request $request)
     {
-        request()->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'gestion' => 'required',
-            'monto' => 'required',
-            'estado' => 'required'
-        ]);
-        Recurso::create($request->all());
-        return redirect()->route('recursos.index');
+    request()->validate([
+    'nombre' => 'required',
+    'descripcion' => 'required',
+    'gestion' => 'required',
+    'monto' => 'required',
+    'estado' => 'required'
+    ]);
+    Recurso::create($request->all());
+    return redirect()->route('recursos.index');
     }
 
     /**
@@ -80,7 +105,7 @@ class RecursoController extends Controller
             'estado' => 'required'
         ]);
         $recurso->update($request->all());
-        return redirect()->route('recursos.index'); 
+        return redirect()->route('recursos.index');
     }
 
     /**

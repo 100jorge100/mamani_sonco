@@ -32,33 +32,33 @@
                             <br><br>
 
                             <table id="empresa"
-                                class="table table-striped table-bordered shadow-lg mt-4 display responsive nowrap"
+                                class="table table-striped table-bordered text-center shadow-lg mt-4 display responsive nowrap"
                                 style="width:100%">
-                                <thead style="background-color:#115851f6">
+                                <thead style="background-color:purple">
                                     <th style="display: none;">#</th>
-                                    <th style="color:#0a0707;">Nombre</th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Nombre</i></th>
 
-                                    <th style="color:#0a0707;">Sigla</th>
-                                    <th style="color:#0a0707;">E-mail</th>
-                                    <th style="color:#0a0707;">Telefono</th>
-                                    <th style="color:#0a0707;">Dirección</th>
-                                    <th style="color:#0a0707;">Dirección Web</th>
-                                    <th style="color:#0a0707;">Nit</th>
-                                    <th style="color:#0a0707;">Estado</th>
-                                    <th style="color:#0a0707;">Acciones</th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Sigla</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">E-mail</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Telefono</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Dirección</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Dirección Web</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Nit</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Estado</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Acciones</i></th>
                                 </thead>
                                 <tbody>
                                     @foreach ($empresas as $empresa)
                                         <tr>
                                             <td style="display: none;">{{ $empresa->id }}</td>
-                                            <td>{{ $empresa->nombre }}</td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->nombre }}</i></td>
 
-                                            <td>{{ $empresa->sigla }}</td>
-                                            <td>{{ $empresa->email }}</td>
-                                            <td>{{ $empresa->telefono }}</td>
-                                            <td>{{ $empresa->direccion }}</td>
-                                            <td>{{ $empresa->direccion_web }}</td>
-                                            <td>{{ $empresa->nit }}</td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->sigla }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->email }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->telefono }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->direccion }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->direccion_web }}</i></td>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $empresa->nit }}</i></td>
                                             <td>
                                                 @if ($empresa->estado == 'desarrollo')
                                                     <button type="button" class="btn btn-warning">Desarrollo</button>
@@ -72,7 +72,7 @@
                                             </td>
                                             <td>
                                                 @can('editar-empresa')
-                                                    <button type="button" class="btn btn-dark botonEditar"
+                                                    <button type="button" class="btn btn-success botonEditar"
                                                         data-empresaId="{{ $empresa->id }}">
                                                         <i class="fas fa-edit"></i>
                                                     </button>
@@ -86,7 +86,7 @@
                                                     @csrf
                                                     @method('DELETE')
                                                     @can('borrar-empresa')
-                                                        <button type="submit" class="btn btn-dark">
+                                                        <button type="submit" class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                         </button>
                                                     @endcan
@@ -303,7 +303,7 @@
     </div>
     <!-- Modal ver fin-->
 
-    <!-- Modal editar inicio-->
+    <!-- Modal par ver descripcion inicio-->
     <div class="modal fade" id="ModalVer" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -338,7 +338,7 @@
             </div>
         </div>
     </div>
-    <!-- Modal ver fin-->
+    <!-- Modal para ver descripcion fin-->
 
 
 @stop
@@ -350,29 +350,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-    <link rel=stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <link rel=stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     <style>
-        table {
-            width: 100%;
-            border: 1px solid #000;
-        }
-
-        th,
-        td {
-            width: 25%;
-            text-align: left;
-            vertical-align: top;
-            border: 1px solid #000;
-            border-collapse: collapse;
-            padding: 0.3em;
-            caption-side: bottom;
-        }
-
-        caption {
-            padding: 0.3em;
-        }
+        .modal-header{
+            background: purple;
+            }
     </style>
+
 @stop
 
 @section('js')
@@ -436,13 +421,10 @@
     <script>
         $(document).ready(function() {
             $('#empresa').DataTable({
-                    "lengthMenu": [
-                        [5, 10, 50, -1],
-                        [5, 10, 50, "ALL"]
-                    ],
+                    "lengthMenu": [[5, 10, 50, -1],[5, 10, 50,"ALL"]],
                     dom: 'Bfrtip',
                     buttons: [
-                        'copy', 'csv', 'excel', 'pdf', 'print'
+                        'excel', 'pdf'
                     ],
                     "language": {
                         "lengthMenu": "Mostrar _MENU_ Registros por pagina",
@@ -453,7 +435,7 @@
                         "search": "Buscar",
                         "paginate": {
                             'next': 'Siguiente',
-                            'previous': 'Anterior'
+                            'previous': 'Anterior',
                         }
                     }
                 })

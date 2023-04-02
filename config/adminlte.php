@@ -153,7 +153,7 @@ return [
     'layout_fixed_sidebar' => true,
     'layout_fixed_navbar' => true,
     'layout_fixed_footer' => null,
-    'layout_dark_mode' => null,
+    'layout_dark_mode' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -192,9 +192,9 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-danger elevation-4',
+    'classes_sidebar' => 'sidebar-dark-purple elevation-4',
     'classes_sidebar_nav' => '',
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'navbar-dark navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -334,10 +334,9 @@ return [
             'label_color' => 'primary',
         ],
         [
-            'text'        => 'Cuenta',
-            'url'         => 'cuentas',
-            'icon'        => 'fas fa-fw fa-chart-line',
-            'label_color' => 'primary',
+            'text' => 'Perfil Usuario',
+            'url'  => 'user/profile',
+            'icon' => 'fas fa-fw fa-user',
         ],
         [
             'text'        => 'Cerrar Cesion',

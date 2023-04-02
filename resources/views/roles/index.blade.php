@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-<section class="section">
+    <section class="section">
         <div class="section-header">
             <h3 class="page__heading">Roles</h3>
         </div>
@@ -16,53 +16,120 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-        
-                        @can('crear-rol')
-                        <a class="btn btn-success" href="{{ route('roles.create') }}">Nuevo</a>                        
-                        @endcan
-        
-                
-                            <table class="table table-striped mt-2">
-                                <thead style="background-color:#e03737f6">                                                       
-                                    <th style="color:#fff;">Rol</th>
-                                    <th style="color:#fff;">Acciones</th>
-                                </thead>  
-                                <tbody>
-                                @foreach ($roles as $role)
-                                <tr>                           
-                                    <td>{{ $role->name }}</td>
-                                    <td>                                
-                                        @can('editar-rol')
-                                            <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
-                                        @endcan
-                                        
-                                        @can('borrar-rol')
-                                            {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
-                                            {!! Form::close() !!}
-                                        @endcan
-                                    </td>
-                                </tr>
-                                @endforeach
-                                </tbody>               
-                            </table>
 
-                            <!-- Centramos la paginacion a la derecha -->
-                            <div class="pagination justify-content-end">
-                                {!! $roles->links() !!} 
-                            </div>                    
-                            </div>
+                            @can('crear-rol')
+                                {{-- <a class="btn btn-success" href="{{ route('roles.create') }}">Nuevo</a> --}}
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal">
+                                    <i class="fas fa-plus"> Agragar Rol</i>
+                                </button>
+                            @endcan
+
+
+                            <table class="table table-striped mt-2">
+                                <thead style="background-color:purple">
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Rol</i></th>
+                                    <th><i style="color:blanchedalmond; font-size: 12px;">Acciones</i></th>
+                                </thead>
+                                <tbody>
+                                    @foreach ($roles as $role)
+                                        <tr>
+                                            <td><i style="color:blanchedalmond; font-size: 12px;">{{ $role->name }}</i></td>
+                                            <td>
+                                                <i style="color:blanchedalmond; font-size: 12px;">
+                                                    @can('borrar-rol')
+                                                    <form action="{{ route('roles.destroy', $role->id) }}" method="POST">
+                                                        @can('editar-rol')
+                                                            <a class="btn btn-success" href="{{ route('roles.edit', $role->id) }}"><i class="fas fa-pen"></i></a>
+                                                        @endcan
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                                    </form>
+                                                @endcan
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+    {{-- crear rol inicio --}}
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLabel"><i>Adicionar Roles</i></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="">Nombre del Rol:</label>
+                                    {!! Form::text('name', null, array('class' => 'form-control')) !!}
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                    <label for="">Permisos para este Rol:</label>
+                                    <br/>
+                                    @php $count = 0; @endphp
+                                    @foreach($permission as $value)
+                                    @if($count % 4 == 0)
+                                        <div class="row">
+                                            @endif
+                                            <div class="col-md-3">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="name">
+                                                    <label class="form-check-label" for="inlineCheckbox">{{ $value->name }}</label>
+                                                </div>
+                                            </div>
+                                            @php $count++; @endphp
+                                            @if($count % 4 == 0 || $loop->last)
+                                        </div>
+                                    @endif
+                                @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Guardar</button>
+                        </div>
+                        {!! Form::close() !!}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    {{-- crear rol fin --}}
 @stop
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    <style>
+        .modal-header{
+            background-color: purple;
+        }
+    </style>
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous">
+    </script>
 @stop

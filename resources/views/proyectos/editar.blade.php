@@ -82,11 +82,12 @@
                 <input type="text" name="fecha_final" class="form-control" value="{{ $proyecto->fecha_final }}">
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <label for="estado">Estado</label>
-                <input type="text" name="estado" class="form-control" value="{{ $proyecto->estado }}">
-            </div>
+        <div class="col-md form-floating mb-3">
+            <select name="estado" class="form-select" aria-label="Default select example" id="estado">
+                <option selected><i>Seleccione una opcion</i></option>
+                <option value="{{ $proyecto->estado }}">Activo</option>
+                <option value="{{ $proyecto->estado }}">Inactivo</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>

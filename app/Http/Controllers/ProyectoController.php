@@ -24,12 +24,12 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $proyectos = Proyecto::all();
-        $recursos = Recurso::all();
-        $empresas = Empresa::all();
         $comunidads = Comunidad::all();
+        $proyectos = Proyecto::all();
+        $empresas = Empresa::all();
+        $recursos = Recurso::all();
         $categorias = Categoria::all();
-        return view('proyectos.index', compact('proyectos', 'recursos', 'empresas', 'comunidads', 'categorias'));
+        return view('proyectos.index', compact('proyectos', 'empresas', 'comunidads', 'recursos', 'categorias'));
     }
 
     /**
